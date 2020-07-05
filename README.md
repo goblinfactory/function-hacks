@@ -75,6 +75,8 @@ public static async Task<(int, double)> GetNumber()
 ```
 **Resulting Winner**
 
+running the code above (with two runs) gives us the following results; `333` and `403` seconds respectively.
+
 <img src='https://github.com/goblinfactory/function-hacks/blob/master/docs/TimeoutWinner.png' width='500px' />
 
 **Resulting distribution, request (server time) in ms for this test**
