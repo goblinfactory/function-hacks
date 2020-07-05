@@ -108,10 +108,12 @@ running the code above (with two runs) gives us the following results; `333` and
 
 **Random result from running on a VM on a mac, at home, across home broadband**
 
-    independant count check, total [60] requests in [22.858] seconds. [2.6]rps
-    independant count check, total [660] requests in [121.465] seconds. [5.4]rps
-    independant count check, total [1560] requests in [18.675] seconds. [83.5]rps
-    independant count check, total [6560] requests in [57.823] seconds. [113.4]rps
+	10 items,     1 threads : independant count check, total [   10] requests in [0.641] seconds. [    15.6]rps
+	80 items,     2 threads : independant count check, total [   90] requests in [1.847] seconds. [    48.7]rps
+	40 items,     4 threads : independant count check, total [  130] requests in [0.544] seconds. [   238.9]rps
+	20 items,     8 threads : independant count check, total [  150] requests in [0.231] seconds. [   649.0]rps
+	40 items,     8 threads : independant count check, total [  190] requests in [0.405] seconds. [   469.6]rps
+	80 items,     8 threads : independant count check, total [  270] requests in [0.522] seconds. [   517.3]rps
 
 **Resulting distribution, request (server time) in ms for this test**
 
@@ -122,25 +124,50 @@ running the code above (with two runs) gives us the following results; `333` and
 **[extract from : messing-around-with-azure-functions.linq](messing-around-with-azure-functions.linq)**
 
 ```csharp
-
-
-static async Task Main(string[] args)
-{
-	// get secrets
+	// quick warm up to assess a reasonable request per second to sustain.
+	await RunTest(10, 1);
+	await RunTest(80, 2);
+	await RunTest(40, 4);
+	await RunTest(20, 8);
+	await RunTest(40, 8);
+	await RunTest(80, 8);
 	
+	// a bit of monkey'ng around seems to indicate we shouldn't do more than 8 threads 
+	// now quite a heavy test to see if we can force it to break?
 	
-	SelfTest(); 	
-	await RunTest(30, 2);
-	await RunTest(30, 20);
-	await RunTest(30, 30);
-	await RunTest(100, 50);
+	//await RunTest(2000, 8);
+	
 }
 
 public static async Task RunTest(int cnt, int threads) {
-	var nums = await DoIt(cnt, threads);
+	_client = new HttpClient(new HttpClientHandler { MaxConnectionsPerServer = threads });
+	Console.Write($"{cnt,5} items, {threads,5} threads : ");
+	var nums = await DoIt(cnt);
 	checkGapsAndDuplicates(nums);
 }
 
+static async Task<int[]> DoIt(int cnt)
+{
+	var sw = new Stopwatch();
+	sw.Start();	
+	var results = await GetNumberWebClient(cnt);
+	sw.Stop();
+	double elapsedSeconds = sw.Elapsed.TotalSeconds;
+	double rps = ((double)_totalRequests) / elapsedSeconds;
+	Console.WriteLine($"independant count check, total [{_totalRequests, 5}] requests in [{elapsedSeconds:0.000}] seconds. [{rps,8:0.0}]rps");
+	return results;
+}
+
+public static async Task<int[]> GetNumberWebClient(int times)
+{
+	var requests = Enumerable		
+		.Range(0, times)
+		.Select(e => _client.GetStringAsync(_uri));
+	
+	var nums = (await Task.WhenAll(requests)).Select(snum => _rex.MatchInt(snum)).ToArray();
+	System.Threading.Interlocked.Add(ref _totalRequests, nums.Length);
+	return nums;
+}
 
 public static (int[] gaps, Dups[] duplicates) checkGapsAndDuplicates(IEnumerable<int> src)
 {
@@ -151,24 +178,13 @@ public static (int[] gaps, Dups[] duplicates) checkGapsAndDuplicates(IEnumerable
 	int cnt = ordered.Length;
 	var seq = Enumerable.Range(first, cnt).Select(i => i);
 	var gaps = seq.Except(ordered).ToArray();
-	var duplicates =  ordered.GroupBy(o => o).Where(o => o.Count() > 1).Select(o => new Dups(o.Key, o.Count())).ToArray();
+	var duplicates = ordered.GroupBy(o => o).Where(o => o.Count() > 1).Select(o => new Dups(o.Key, o.Count())).ToArray();
 	return (gaps, duplicates);
 }
 
-static async Task<int[]> DoIt(int cnt, int threads)
-{
-	var sw = new Stopwatch();
-	sw.Start();	
-	var results = await Run(cnt, threads);
-	sw.Stop();
-	double elapsedSeconds = sw.Elapsed.TotalSeconds;
-	double rps = ((double)_totalRequests) / elapsedSeconds;
-	Console.WriteLine($"independant count check, total [{_totalRequests}] requests in [{elapsedSeconds:0.000}] seconds. [{rps:0.0}]rps");
-	return results.SelectMany(r => r).ToArray();
-}
 ```
 
-linqpad scripts:
+Full linqpad scripts below;
 
 * [test accessing Azure Function in parallel](messing-around-with-azure-functions.linq)
 * [test how long azure function 'state' remains active](test-azure-function-timeout.linq)
