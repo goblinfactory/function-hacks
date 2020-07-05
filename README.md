@@ -114,7 +114,7 @@ running the code above (with two runs) gives us the following results; `333` and
 
 (consider this as the cost for doing nothing, and costs go up from here. This is effectively the baseline of doing "nothing" in .NET. (incrementing one number)
 
-<img src='https://github.com/goblinfactory/function-hacks/blob/master/docs/testConcurrency.PNG' width='700px'/>
+<img src='https://github.com/goblinfactory/function-hacks/blob/master/docs/TestConcurrency.PNG' width='700px'/>
 
 **[extract from : messing-around-with-azure-functions.linq](messing-around-with-azure-functions.linq)**
 
