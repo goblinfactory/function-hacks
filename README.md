@@ -89,6 +89,7 @@ public static async Task<(int, double)> GetNumber()
 
 ***todo***
 
+- I need to show my cost estimates before running these tests. I did not want to blow my £1 budget for running all my tests!
 - I still need to run these from a VM and from a build agent from within Azure itself, configured with values so that the test will complete within around 30 seconds. 
 
 **Random result from running on a VM on a mac, at home, across home broadband**
@@ -97,6 +98,12 @@ public static async Task<(int, double)> GetNumber()
     independant count check, total [660] requests in [121.465] seconds. [5.4]rps
     independant count check, total [1560] requests in [18.675] seconds. [83.5]rps
     independant count check, total [6560] requests in [57.823] seconds. [113.4]rps
+
+**Resulting distribution, request (server time) in ms for this test**
+
+(consider this as the cost for doing nothing, and costs go up from here. This is effectively the baseline of doing "nothing" in .NET. (incrementing one number)
+
+<img src='docs/testConcurrency.PNG' width='600px'/>
 
 **[extract from : messing-around-with-azure-functions.linq](messing-around-with-azure-functions.linq)**
 
