@@ -16,7 +16,6 @@ static async Task Main(string[] args)
 	
 	SelfTest(); 	
 	await RunTest(30, 2);
-	return;
 	await RunTest(30, 20);
 	await RunTest(30, 30);
 	await RunTest(100, 50);
