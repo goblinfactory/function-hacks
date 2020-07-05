@@ -75,7 +75,7 @@ public static async Task<(int, double)> GetNumber()
 ```
 **Resulting Winner**
 
-<img src='https://github.com/goblinfactory/function-hacks/blob/master/docs/TimeoutWinner.PNG' width='500px' />
+<img src='https://github.com/goblinfactory/function-hacks/blob/master/docs/TimeoutWinner.png' width='500px' />
 
 **Resulting distribution, request (server time) in ms for this test**
 
