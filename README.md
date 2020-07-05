@@ -108,12 +108,28 @@ running the code above (with two runs) gives us the following results; `333` and
 
 **Random result from running on a VM on a mac, at home, across home broadband**
 
-	10 items,     1 threads : independant count check, total [   10] requests in [1.477] seconds. [     6.8]rps
-	80 items,     2 threads : independant count check, total [   90] requests in [4.510] seconds. [    17.7]rps
-	40 items,     4 threads : independant count check, total [  130] requests in [2.628] seconds. [    15.2]rps
-	20 items,     8 threads : independant count check, total [  150] requests in [0.233] seconds. [    85.8]rps
-	40 items,     8 threads : independant count check, total [  190] requests in [0.366] seconds. [   109.4]rps
-	80 items,     8 threads : independant count check, total [  270] requests in [0.564] seconds. [   141.7]rps
+	10 items,     1 threads : independant count check, total [   10] requests in [0.546] seconds. [    18.3]rps
+	80 items,     2 threads : independant count check, total [   90] requests in [1.458] seconds. [    54.9]rps
+	40 items,     4 threads : independant count check, total [  130] requests in [0.462] seconds. [    86.6]rps
+	20 items,     8 threads : independant count check, total [  150] requests in [0.279] seconds. [    71.7]rps
+	40 items,     8 threads : independant count check, total [  190] requests in [0.318] seconds. [   125.6]rps
+	80 items,     8 threads : independant count check, total [  270] requests in [0.472] seconds. [   169.4]rps
+	80 items,    10 threads : independant count check, total [  350] requests in [0.407] seconds. [   196.4]rps
+	80 items,    12 threads : independant count check, total [  430] requests in [0.503] seconds. [   159.0]rps
+	100 items,    14 threads : independant count check, total [  530] requests in [0.547] seconds. [   182.8]rps
+	120 items,    16 threads : independant count check, total [  650] requests in [0.516] seconds. [   232.4]rps
+	200 items,    20 threads : independant count check, total [  850] requests in [0.708] seconds. [   282.5]rps
+	400 items,    25 threads : independant count check, total [ 1250] requests in [1.185] seconds. [   337.5]rps
+	600 items,    26 threads : independant count check, total [ 1850] requests in [1.523] seconds. [   393.9]rps
+	700 items,    27 threads : independant count check, total [ 2550] requests in [1.674] seconds. [   418.1]rps
+	800 items,    28 threads : independant count check, total [ 3350] requests in [2.278] seconds. [   351.2]rps
+	900 items,    29 threads : independant count check, total [ 4250] requests in [2.190] seconds. [   411.0]rps
+	1000 items,    30 threads : independant count check, total [ 5250] requests in [2.399] seconds. [   416.9]rps
+	400 items,    30 threads : independant count check, total [ 5650] requests in [1.199] seconds. [   333.6]rps
+	600 items,    40 threads : independant count check, total [ 6250] requests in [2.002] seconds. [   299.8]rps
+	700 items,    50 threads : independant count check, total [ 6950] requests in [1.707] seconds. [   410.2]rps
+	800 items,    60 threads : independant count check, total [ 7750] requests in [2.179] seconds. [   367.2]rps
+	900 items,    70 threads : independant count check, total [ 8650] requests in [2.408] seconds. [   373.8]rps
 
 **Resulting distribution, request (server time) in ms for this test**
 
@@ -128,14 +144,14 @@ running the code above (with two runs) gives us the following results; `333` and
 	await RunTest(10, 1);
 	await RunTest(80, 2);
 	await RunTest(40, 4);
-	await RunTest(20, 8);
-	await RunTest(40, 8);
-	await RunTest(80, 8);
+	await RunTest(100, 10);
+	await RunTest(200, 20);
+	await RunTest(400, 40);
 	
-	// a bit of monkey'ng around seems to indicate we shouldn't do more than 8 threads 
+	// a bit of monkey'ng around seems to indicate we need between 30 to 40 threads for max throughput.
+
 	// now quite a heavy test to see if we can force it to break?
-	
-	//await RunTest(2000, 8);
+	await RunTest(20000, 40);
 	
 }
 
