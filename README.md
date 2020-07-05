@@ -6,8 +6,6 @@ Some hacky scripts I've thrown together to help me explore some aspects of azure
 
 I have the following azure function (below) deployed at url `https://REDACTED_AZUREFUNCTION_URL.azurewebsites.net/api/Test1?name=fred&code=REDACTED_API_FUNCTION_KEY` which is secured with a function key, and the key and domain are stored in Linqpad password manager.
 
-* [extract from test-azure-function-timeout.linq](test-azure-function-timeout.linq)
-
 ```csharp
  public static long _cnt = 0;
         [FunctionName("Test1")]
@@ -34,6 +32,8 @@ I have the following azure function (below) deployed at url `https://REDACTED_AZ
 That function is what you get when you create a new AzureFunction using the wizard in Visual studio 2019.
 
 #### hacky Test to see how long it takes to times out
+
+* [extract from test-azure-function-timeout.linq](test-azure-function-timeout.linq)
 
 ```csharp
 
