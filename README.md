@@ -87,6 +87,17 @@ public static async Task<(int, double)> GetNumber()
 
 - i have not tested firing up this linqpad script in different regions to see if Microsoft would route the traffic to the alraedy running single instance, or create a new instance? i.e. spare capacity et al.
 
+***todo***
+
+- I still need to run these from a VM and from a build agent from within Azure itself, configured with values so that the test will complete within around 30 seconds. 
+
+**Random result from running on a VM on a mac, at home, across home broadband**
+
+    independant count check, total [60] requests in [22.858] seconds. [2.6]rps
+    independant count check, total [660] requests in [121.465] seconds. [5.4]rps
+    independant count check, total [1560] requests in [18.675] seconds. [83.5]rps
+    independant count check, total [6560] requests in [57.823] seconds. [113.4]rps
+
 **[extract from : messing-around-with-azure-functions.linq](messing-around-with-azure-functions.linq)**
 
 ```csharp
