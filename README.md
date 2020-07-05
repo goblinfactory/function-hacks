@@ -73,6 +73,14 @@ public static async Task<(int, double)> GetNumber()
 	return (num, elapsedMS);
 }
 ```
+**Resulting Winner**
+
+<img src='docs/TimeoutWinner.PNG' width='500px' style='margin-left:20px;filter: drop-shadow(5px 5px 5px #222);' />
+
+**Resulting distribution, request (server time) in ms for this test**
+
+<img src='docs/testTimeout.PNG' width='700px'/>
+
 
 #### hacky test to test concurrency issues
 
@@ -103,7 +111,7 @@ public static async Task<(int, double)> GetNumber()
 
 (consider this as the cost for doing nothing, and costs go up from here. This is effectively the baseline of doing "nothing" in .NET. (incrementing one number)
 
-<img src='docs/testConcurrency.PNG' width='600px'/>
+<img src='docs/testConcurrency.PNG' width='700px'/>
 
 **[extract from : messing-around-with-azure-functions.linq](messing-around-with-azure-functions.linq)**
 
