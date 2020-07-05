@@ -81,7 +81,7 @@ running the code above (with two runs) gives us the following results; `333` and
 
 **Resulting distribution, request (server time) in ms for this test**
 
-<img src="https://github.com/goblinfactory/function-hacks/blob/master/docs/TestConcurrency.PNG" width='700px'/>
+<img src="https://github.com/goblinfactory/function-hacks/blob/master/docs/TestTimeout.PNG" width='700px'/>
 
 
 
