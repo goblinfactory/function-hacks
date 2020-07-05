@@ -22,15 +22,17 @@ static async Task Main(string[] args)
 	SelfTest(); 	
 
 	// quick warm up to assess a reasonable request per second to sustain.
-	await RunTest(100, 1);
+	await RunTest(10, 1);
 	await RunTest(80, 2);
 	await RunTest(40, 4);
 	await RunTest(20, 8);
+	await RunTest(40, 8);
+	await RunTest(80, 8);
 	
 	// a bit of monkey'ng around seems to indicate we shouldn't do more than 8 threads 
 	// now quite a heavy test to see if we can force it to break?
 	
-	await RunTest(2000, 8);
+	//await RunTest(2000, 8);
 	
 }
 
@@ -41,9 +43,6 @@ public static async Task RunTest(int cnt, int threads) {
 	checkGapsAndDuplicates(nums);
 }
 
-
-
-
 static async Task<int[]> DoIt(int cnt)
 {
 	var sw = new Stopwatch();
@@ -51,7 +50,7 @@ static async Task<int[]> DoIt(int cnt)
 	var results = await GetNumberWebClient(cnt);
 	sw.Stop();
 	double elapsedSeconds = sw.Elapsed.TotalSeconds;
-	double rps = ((double)_totalRequests) / elapsedSeconds;
+	double rps = ((double)results.Length) / elapsedSeconds;
 	Console.WriteLine($"independant count check, total [{_totalRequests, 5}] requests in [{elapsedSeconds:0.000}] seconds. [{rps,8:0.0}]rps");
 	return results;
 }

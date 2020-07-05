@@ -108,12 +108,12 @@ running the code above (with two runs) gives us the following results; `333` and
 
 **Random result from running on a VM on a mac, at home, across home broadband**
 
-	10 items,     1 threads : independant count check, total [   10] requests in [0.641] seconds. [    15.6]rps
-	80 items,     2 threads : independant count check, total [   90] requests in [1.847] seconds. [    48.7]rps
-	40 items,     4 threads : independant count check, total [  130] requests in [0.544] seconds. [   238.9]rps
-	20 items,     8 threads : independant count check, total [  150] requests in [0.231] seconds. [   649.0]rps
-	40 items,     8 threads : independant count check, total [  190] requests in [0.405] seconds. [   469.6]rps
-	80 items,     8 threads : independant count check, total [  270] requests in [0.522] seconds. [   517.3]rps
+	10 items,     1 threads : independant count check, total [   10] requests in [1.477] seconds. [     6.8]rps
+	80 items,     2 threads : independant count check, total [   90] requests in [4.510] seconds. [    17.7]rps
+	40 items,     4 threads : independant count check, total [  130] requests in [2.628] seconds. [    15.2]rps
+	20 items,     8 threads : independant count check, total [  150] requests in [0.233] seconds. [    85.8]rps
+	40 items,     8 threads : independant count check, total [  190] requests in [0.366] seconds. [   109.4]rps
+	80 items,     8 threads : independant count check, total [  270] requests in [0.564] seconds. [   141.7]rps
 
 **Resulting distribution, request (server time) in ms for this test**
 
@@ -153,7 +153,7 @@ static async Task<int[]> DoIt(int cnt)
 	var results = await GetNumberWebClient(cnt);
 	sw.Stop();
 	double elapsedSeconds = sw.Elapsed.TotalSeconds;
-	double rps = ((double)_totalRequests) / elapsedSeconds;
+	double rps = ((double)results.Length) / elapsedSeconds;
 	Console.WriteLine($"independant count check, total [{_totalRequests, 5}] requests in [{elapsedSeconds:0.000}] seconds. [{rps,8:0.0}]rps");
 	return results;
 }
