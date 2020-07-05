@@ -75,11 +75,11 @@ public static async Task<(int, double)> GetNumber()
 ```
 **Resulting Winner**
 
-<img src='docs/TimeoutWinner.PNG' width='500px' style='margin-left:20px;filter: drop-shadow(5px 5px 5px #222);' />
+<img src='./docs/TimeoutWinner.PNG' width='500px' style='margin-left:20px;filter: drop-shadow(5px 5px 5px #222);' />
 
 **Resulting distribution, request (server time) in ms for this test**
 
-<img src='docs/testTimeout.PNG' width='700px'/>
+<img src='./docs/testTimeout.PNG' width='700px'/>
 
 
 #### hacky test to test concurrency issues
