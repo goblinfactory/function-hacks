@@ -97,6 +97,9 @@ running the code above (with two runs) gives us the following results; `333` and
 ***musings?***
 
 - i have not tested firing up this linqpad script in different regions to see if Microsoft would route the traffic to the alraedy running single instance, or create a new instance? i.e. spare capacity et al.
+- what's the simplest optimistic concurrency lock mechanism I can add to an azure function to tell if another function is live?
+	- that gives some obvious challenges
+		- how to tell an existing function... "go away", and still service clients effectively? (I doubt that will even be possible.) throw enough 500's and Azure would possibly simply spin up another server and the problem simply dominoes?
 
 ***todo***
 
